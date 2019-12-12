@@ -1,0 +1,16 @@
+secret-detection-rules:
+- target:
+  - \"(?P<suspect>[A-Za-z0-9\/+]{40})\"
+  - '''(?P<suspect>[A-Za-z0-9\/+]{40})'''
+  except:
+  - \"EXAMPLE([A-Za-z0-9\/+]{33})\"
+  - '''EXAMPLE([A-Za-z0-9\/+]{33})'''
+  entropy: 4.5
+  tag: AWS_SEC
+  exploitfn: AwsSTS
+
+- target:
+  - \"(?P<suspect>sec[A-Za-z0-9\/+]{37})\"
+  - '''(?P<suspect>sec[A-Za-z0-9\/+]{37})'''
+  entropy: 4.5
+  tag: MY_OTHER_SEC_TYPE
