@@ -2,7 +2,7 @@
     <img src="./logo.svg" width="150" alt="Logo"/>
 </p>
 
-[![Build Status](https://travis-ci.com/intuit/gitdetect.svg?token=xADCatsR3BF3AS5LGE2z&branch=master)](https://travis-ci.com/intuit/gitdetect)
+[![Build Status](https://travis-ci.org/intuit/gitdetect.svg?branch=master)](https://travis-ci.org/intuit/gitdetect)
 [![codecov](https://codecov.io/gh/intuit/gitdetect/branch/master/graph/badge.svg?)](https://codecov.io/gh/intuit/gitdetect)
 [![Go Report Card](https://goreportcard.com/badge/github.com/intuit/gitdetect?)](https://goreportcard.com/report/github.com/intuit/gitdetect)
 
