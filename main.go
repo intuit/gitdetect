@@ -131,7 +131,7 @@ func initializeScanParameters(cliArguments []string) (scanParameters ScanParamet
 	flagset.StringVar(&scanParameters.configFilename, CLI_ARG_CONFIG_FILENAME, "", "Full path name of the detection rule configuration file.")
 	flagset.StringVar(&scanParameters.accessToken, CLI_ARG_GIT_ACCESS_TOKEN, "", "github access token.")
 	flagset.StringVar(&scanParameters.outputDir, CLI_ARG_OUTPUT_DIR, "", "working dir and report genaration dir.")
-	flagset.StringVar(&scanParameters.githubHostname, CLI_ARG_GIT_HOSTNAME, "github.com", "github url hostname")
+	flagset.StringVar(&scanParameters.githubHostname, CLI_ARG_GIT_HOSTNAME, github.PUBLIC_HOSTNAME, "github url hostname")
 	flagset.StringVar(&scanParameters.repoName, CLI_ARG_GIT_REPO_NAME, "", "Fully qualified repo name in the format <owner>/<name>/[<branch>] e.g. my-org/my-proj for the default branch or my-org/my-proj/my-feature-branch. Leave blank for a full github scan.")
 	flagset.IntVar(&scanParameters.lastModifiedScanCutoff, CLI_ARG_GIT_LAST_MODIFIED_CUTOFF, 0, "The repository will not be scanned unless it was modified in the last number of days specified here. 0 indicates scan always.")
 	flagset.StringVar(&scanParameters.localScanDir, CLI_ARG_LOCAL_SCAN_DIR, "", "The local directory path to scan.  When set, github related options are ignored.")
@@ -164,7 +164,7 @@ func initializeScanParameters(cliArguments []string) (scanParameters ScanParamet
 
 	if scanParameters.localScanDir == "" {
 
-		if scanParameters.accessToken == "" {
+		if scanParameters.accessToken == "" && scanParameters.githubHostname != github.PUBLIC_HOSTNAME {
 			err = errors.New("Access Token not specified")
 			return
 		}

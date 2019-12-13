@@ -3,12 +3,11 @@ package github
 //Package github is used to interface with a github server host as the FileRepository source.  Github repositories are downloaded as zip archives and scanned on the local filesystem.
 
 import (
-	"github.com/intuit/gitdetect/defect"
-	"golang.org/x/net/context"
-
 	"bytes"
 	"fmt"
 	"github.com/google/go-github/github"
+	"github.com/intuit/gitdetect/defect"
+	"golang.org/x/net/context"
 	"golang.org/x/oauth2"
 	"io/ioutil"
 	"log"
@@ -21,6 +20,11 @@ import (
 
 	"github.com/intuit/gitdetect/filerepo/scanner"
 	"github.com/intuit/gitdetect/secret"
+)
+
+const (
+	//PUBLIC_HOSTNAME default github hostname
+	PUBLIC_HOSTNAME = "github.com"
 )
 
 //FileRepository represents a Github FileRepository source
@@ -166,18 +170,33 @@ func (this *FileRepository) getRepoDetails(repoElement *github.Repository) (repo
 
 func (this *FileRepository) initClient() *github.Client {
 
-	ctx := context.Background()
-	ts := oauth2.StaticTokenSource(
-		&oauth2.Token{AccessToken: this.accessToken},
-	)
-	tc := oauth2.NewClient(ctx, ts)
+	var gClient *github.Client
 
-	gClient := github.NewClient(tc)
+	//enterprise github
+	endpoint := this.hostname
+	path := "/api/v3/"
+
+	//public github
+	if this.hostname == PUBLIC_HOSTNAME {
+		endpoint = "api." + this.hostname
+		path = "/"
+	}
+
+	if this.accessToken == "" {
+		gClient = github.NewClient(nil)
+	} else {
+		ctx := context.Background()
+		ts := oauth2.StaticTokenSource(
+			&oauth2.Token{AccessToken: this.accessToken},
+		)
+		tc := oauth2.NewClient(ctx, ts)
+		gClient = github.NewClient(tc)
+	}
 
 	githubURL := url.URL{
 		Scheme: "https",
-		Host:   this.hostname,
-		Path:   "/api/v3/",
+		Host:   endpoint,
+		Path:   path,
 	}
 	gClient.BaseURL = &githubURL
 	return gClient
@@ -187,7 +206,12 @@ func (this *FileRepository) downloadRepoArchive(archiveURL string, repoName stri
 
 	archiveURL = strings.Replace(archiveURL, "{archive_format}{/ref}", "zipball/"+repoBranch, 1)
 
-	response, err := http.Get(archiveURL + "?access_token=" + this.accessToken)
+	endpoint := archiveURL
+	if this.accessToken != "" {
+		endpoint += "?access_token=" + this.accessToken
+	}
+
+	response, err := http.Get(endpoint)
 	if err != nil {
 		return "", err
 	}

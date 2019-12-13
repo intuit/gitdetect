@@ -61,26 +61,10 @@ func TestLocalScan(t *testing.T) {
 	return
 
 }
-/*
+
 func TestGithubScan(t *testing.T) {
 
-	githubToken := os.Getenv("GITHUBTOKEN")
-	if githubToken == "" {
-		t.Log("Quitting, test environment not setup.")
-		return
-	}
-
-	githubHostName := os.Getenv("GITHUBHOSTNAME")
-	if githubHostName == "" {
-		githubHostName = "github.com"
-	}
-
-	githubRepoNameBranch := os.Getenv("REPONAMEBRANCH")
-	if githubRepoNameBranch == "" {
-		githubRepoNameBranch = "idps/gitdetect"
-	}
-
-	cliArgs := []string{commandArg(CLI_ARG_GIT_ACCESS_TOKEN), githubToken, commandArg(CLI_ARG_GIT_HOSTNAME), githubHostName, commandArg(CLI_ARG_GIT_REPO_NAME), githubRepoNameBranch}
+	cliArgs := []string{commandArg(CLI_ARG_GIT_REPO_NAME), "intuit/gitdetect"}
 	cliArgs = append(commonCliArgs, cliArgs...)
 
 	defectReport, err := doMain(cliArgs)
@@ -90,7 +74,7 @@ func TestGithubScan(t *testing.T) {
 
 	validateGitRepoValues(t, defectReport)
 	validateDefects(t, defectReport)
-}*/
+}
 
 func getProjectDir() string {
 	_, filename, _, _ := runtime.Caller(0)
