@@ -64,7 +64,23 @@ func TestLocalScan(t *testing.T) {
 
 func TestGithubScan(t *testing.T) {
 
-	cliArgs := []string{commandArg(CLI_ARG_GIT_REPO_NAME), "intuit/gitdetect"}
+	githubToken := os.Getenv("GITHUBTOKEN")
+	if githubToken == "" {
+		t.Log("Quitting, test environment not setup.")
+		return
+	}
+
+	githubHostName := os.Getenv("GITHUBHOSTNAME")
+	if githubHostName == "" {
+		githubHostName = "github.com"
+	}
+
+	githubRepoNameBranch := os.Getenv("REPONAMEBRANCH")
+	if githubRepoNameBranch == "" {
+		githubRepoNameBranch = "intuit/gitdetect"
+	}
+
+	cliArgs := []string{commandArg(CLI_ARG_GIT_ACCESS_TOKEN), githubToken, commandArg(CLI_ARG_GIT_HOSTNAME), githubHostName, commandArg(CLI_ARG_GIT_REPO_NAME), githubRepoNameBranch}
 	cliArgs = append(commonCliArgs, cliArgs...)
 
 	defectReport, err := doMain(cliArgs)
