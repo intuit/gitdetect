@@ -209,7 +209,7 @@ func validateSingleSecretOccurence(t *testing.T, defectList []*defect.Defect) {
 	t.Log("validateSingleSecretOccurence")
 	assertEqual(t, 1, len(defectList), "Number of Defects")
 	defect := defectList[0]
-	assertEqual(t, 1, len(defect.Lines), "Number of line occurences")
+	assertEqual(t, 1, len(defect.Lines), "Number of line occurrences")
 	assertEqual(t, 3, defect.Lines[0], "Defect line number")
 
 }
@@ -226,7 +226,7 @@ func validateMultiDistinctSecretOccurence(t *testing.T, defectList []*defect.Def
 
 	for _, defect := range defectList {
 
-		assertEqual(t, 1, len(defect.Lines), "Number of line occurences")
+		assertEqual(t, 1, len(defect.Lines), "Number of line occurrences")
 		assertTrue(t, defect.Lines[0] == 4 || defect.Lines[0] == 5, "Defect line number")
 	}
 }
@@ -243,7 +243,7 @@ func validateCommonLineDistinctSecretOccurence(t *testing.T, defectList []*defec
 
 	for _, defect := range defectList {
 
-		assertEqual(t, 1, len(defect.Lines), "Number of line occurences")
+		assertEqual(t, 1, len(defect.Lines), "Number of line occurrences")
 	}
 }
 
@@ -264,7 +264,7 @@ func validateActiveSecretOccurence(t *testing.T, defectList []*defect.Defect) {
 	t.Log("validateActiveSecretOccurence")
 	assertEqual(t, 1, len(defectList), "Number of Defects")
 	defect := defectList[0]
-	assertEqual(t, 1, len(defect.Lines), "Number of line occurences")
+	assertEqual(t, 1, len(defect.Lines), "Number of line occurrences")
 	assertEqual(t, 7, defect.Lines[0], "Defect line number")
 
 	awsInfo := exploit.AWSInfo{}

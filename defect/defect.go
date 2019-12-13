@@ -53,7 +53,7 @@ func NewFileDefects() FileDefects {
 	}
 }
 
-//AddInstance adds a new Defect structure when secret is the first occurence detected in fileName.  If secret is not the first occurence found in fileName the Defect is modified
+//AddInstance adds a new Defect structure when secret is the first occurrence detected in fileName.  If secret is not the first occurrence found in fileName the Defect is modified
 // to inlcude the additional line number where the secret was again detected.
 func (this *FileDefects) AddInstance(fileName string, secret secret.Secret) (defectInstance *Defect, newDefect bool) {
 

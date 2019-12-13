@@ -64,7 +64,7 @@ func NewGithubFileRepository(githubHostname string, accessToken string, lastModi
 	return &githubRepository
 }
 
-//Scan scans this repoOwner/repoBranch when repoOwner & repoBranch are set.  When not set, all repositories on this hostname accessable by this accessToken are scanned
+//Scan scans this repoOwner/repoBranch when repoOwner & repoBranch are set.  When not set, all repositories on this hostname accessible by this accessToken are scanned
 func (this *FileRepository) Scan(defectReport *defect.Report) (err error) {
 
 	if this.repoName != "" {
